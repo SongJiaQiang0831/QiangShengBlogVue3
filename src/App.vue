@@ -1,26 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <el-config-provider :locale="locale">
+    <router-view></router-view>
+  </el-config-provider>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { defineComponent } from 'vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+let locale = zhCn
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  font-family: -apple-system-font, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif;
+  color: #4c4e4d;
+  font-size: 16px;
+  background: #f4f4f4;
+  line-height: 1.6;
+}
+
+#nprogress .bar {
+   background: #409eff!important;
 }
 </style>
