@@ -1,3 +1,4 @@
+<!--后台关闭所有-->
 <template>
     <div class="tag-list" :style="{ left: $store.state.menuWidth }">
         <el-tabs v-model="activeTab" type="card" @tab-remove="removeTab" @tab-change="tabChange" style="min-width: 100px;">

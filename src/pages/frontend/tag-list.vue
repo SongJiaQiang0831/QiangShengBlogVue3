@@ -29,7 +29,7 @@ import Header from '@/layouts/components/Header.vue'
 import Footer from '@/layouts/components/Footer.vue'
 import UserInfoCard from '@/components/UserInfoCard.vue'
 import { useRouter } from 'vue-router'
-import { getTags } from '@/api/frontend/tag'
+import { getTags } from '@/pages/frontend/js/tag'
 import { ref } from 'vue'
 
 const router = useRouter()

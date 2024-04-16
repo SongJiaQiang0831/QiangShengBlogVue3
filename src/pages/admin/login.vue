@@ -94,27 +94,30 @@ const onSubmit = () => {
             return false
         }
         loading.value = true
-        login(form.username, form.password)
+        console.log("valid:"+valid)
+      router.push('/admin')
+       /* login(form.username, form.password)
             .then(res => {
-                if (res.success == true) {
-                    // 提示成功
-                    let message = res.message
-                    showMessage('登录成功', 'success')
-                    // notification('登录成功')
-
-                    let token = res.data.token
-                    // 存储 token
-                    setToken(token)
-
-                    // 跳转到后台页面
-                    router.push('/admin')
-                } else {
-                    let message = res.message
-                    showMessage(message, 'error')
-                }
+              console.log("res:"+res)
+                // if (res.success == true) {
+                //     // 提示成功
+                //     let message = res.message
+                //     showMessage('登录成功', 'success')
+                //     // notification('登录成功')
+                //
+                //     let token = res.data.token
+                //     // 存储 token
+                //     setToken(token)
+                //
+                //     // 跳转到后台页面
+                //     router.push('/admin')
+                // } else {
+                //     let message = res.message
+                //     showMessage(message, 'error')
+                // }
             }).finally(() => {
                 loading.value = false
-            })
+            })*/
     })
 }
 

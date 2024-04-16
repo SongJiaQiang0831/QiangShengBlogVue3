@@ -1,5 +1,6 @@
+<!--
 <template>
-    <!-- <header class="header-container bg-light-50">
+    &lt;!&ndash; <header class="header-container bg-light-50">
             <div class="container mx-auto">
                 <el-menu class="el-menu" mode="horizontal" :ellipsis="false" @select="handleSelect">
                     <el-menu-item class="title-li">
@@ -33,13 +34,13 @@
                     </el-sub-menu>
                 </el-menu>
             </div>
-        </header> -->
+        </header> &ndash;&gt;
     <header class="sticky top-0 z-100">
 
 
         <nav class="bg-white border-gray-200 border-b dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <!-- LOGO -->
+                &lt;!&ndash; LOGO &ndash;&gt;
                 <a href="/" class="flex items-center">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -55,10 +56,10 @@
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                         data-dropdown-placement="bottom">
                         <span class="sr-only">Open user menu</span>
-                        <!-- 用户登录头像 -->
+                        &lt;!&ndash; 用户登录头像 &ndash;&gt;
                         <img class="w-8 h-8 rounded-full" :src="$store.state.setting.avatar" alt="user photo">
                     </button>
-                    <!-- Dropdown menu -->
+                    &lt;!&ndash; Dropdown menu &ndash;&gt;
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                         id="user-dropdown">
                         <ul class="py-2" aria-labelledby="user-menu-button">
@@ -174,10 +175,10 @@ function logout() {
 }
 
 .header-container {
-    border-bottom: solid 1px var(--el-menu-border-color);
+    border-bottom: solid 1px var(&#45;&#45;el-menu-border-color);
 }
 
-.el-menu--horizontal {
+.el-menu&#45;&#45;horizontal {
     border-bottom: 0;
 }
 
@@ -226,4 +227,4 @@ function logout() {
 .bg-gray-hover:hover {
     border-bottom: 1px solid #fff !important;
     background-color: #f4f4f5 !important;
-}</style>
+}</style>-->

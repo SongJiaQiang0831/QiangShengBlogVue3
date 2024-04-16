@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { getAdminInfo } from '@/api/admin/user'
-import { getBlogSettingDetail } from '@/api/frontend/blogsetting'
+import { getBlogSettingDetail } from '@/pages/frontend/js/blogsetting'
 import { removeToken } from '@/composables/auth'
 import { useRouter } from 'vue-router'
 
@@ -49,6 +49,7 @@ const store = createStore({
         getBlogSetting({ commit }) {
             return new Promise((resolve, reject) => {
                 getBlogSettingDetail().then(res => {
+                    console.log("eeeee")
                     commit('SET_BLOG_SETTING', res.data)
                     // 固定使用格式
                     resolve(res.data)

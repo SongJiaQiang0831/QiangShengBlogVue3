@@ -1,5 +1,5 @@
 <template>
     <div>
-        关于我页面
+        关于songjiaqiang页面
     </div>
 </template>

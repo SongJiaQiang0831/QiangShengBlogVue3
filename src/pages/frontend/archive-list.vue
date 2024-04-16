@@ -26,7 +26,7 @@
                                                 stroke-width="2"
                                                 d="M5 1v3m5-3v3m5-3v3M1 7h18M5 11h10M2 3h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
                                         </svg>
-                                        {{ item2.createTime }}
+                                        dsadasdasdasdasdasd
                                     </span>
                                 </div>
                             </a>
@@ -62,7 +62,6 @@
                                 class="flex items-center border-gray-300 justify-center px-4 h-10 leading-tight bg-white border dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                 :class="[page == current ? 'text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700' : 'text-gray-500  hover:bg-gray-100 hover:text-gray-700']"
                                 >
-                                
                                 {{ page }}
                             </a>
                         </li>
@@ -105,7 +104,7 @@ import Header from '@/layouts/components/Header.vue'
 import Footer from '@/layouts/components/Footer.vue'
 import UserInfoCard from '@/components/UserInfoCard.vue'
 import { useRouter } from 'vue-router'
-import { getArchives } from '@/api/frontend/archive'
+import { getArchives } from '@/pages/frontend/js/archive'
 import { ref } from 'vue'
 
 const router = useRouter()

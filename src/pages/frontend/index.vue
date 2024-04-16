@@ -151,9 +151,9 @@ import Footer from '@/layouts/components/Footer.vue'
 import UserInfoCard from '@/components/UserInfoCard.vue'
 import { useRouter } from 'vue-router'
 import { reactive, ref } from 'vue'
-import { getIndexArticles } from '@/api/frontend/index'
-import { getCategories } from '@/api/frontend/category'
-import { getTags } from '@/api/frontend/tag'
+import { getIndexArticles } from '@/pages/frontend/js/index'
+import { getCategories } from '@/pages/frontend/js/category'
+import { getTags } from '@/pages/frontend/js/tag'
 
 const router = useRouter()
 
@@ -172,17 +172,17 @@ const pages = ref(0)
 // 获取分页数据
 function getArticles(currentNo) {
     console.log('获取分页数据')
-    getIndexArticles({ current: currentNo, size: size.value })
-        .then((res) => {
-            console.log(res)
-            if (res.success == true) {
-                articles.value = res.data
-                current.value = res.current
-                total.value = res.total
-                size.value = res.size
-                pages.value = res.pages
-            }
-        })
+    // getIndexArticles({ current: currentNo, size: size.value })
+    //     .then((res) => {
+    //         console.log(res)
+    //         if (res.success == true) {
+    //             articles.value = res.data
+    //             current.value = res.current
+    //             total.value = res.total
+    //             size.value = res.size
+    //             pages.value = res.pages
+    //         }
+    //     })
 }
 getArticles(current.value)
 

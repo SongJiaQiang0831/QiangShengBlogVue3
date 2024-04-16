@@ -8,7 +8,7 @@ import { showPageLoading, hidePageLoading } from '@/composables/util'
 // 全局前置守卫
 router.beforeEach(async (to, from, next) => {
 //    console.log('全局前置守卫 >>>>')
-    showPageLoading()
+//     showPageLoading()
     // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
     // else next()
 

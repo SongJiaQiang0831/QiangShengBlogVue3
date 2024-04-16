@@ -153,10 +153,10 @@ import Header from '@/layouts/components/Header.vue'
 import Footer from '@/layouts/components/Footer.vue'
 import UserInfoCard from '@/components/UserInfoCard.vue'
 import { useRoute, useRouter } from 'vue-router';
-import { getArticleDetail } from '@/api/frontend/article';
+import { getArticleDetail } from '@/pages/frontend/js/article';
 import { ref, reactive } from 'vue'
-import { getCategories } from '@/api/frontend/category'
-import { getTags } from '@/api/frontend/tag'
+import { getCategories } from '@/pages/frontend/js/category'
+import { getTags } from '@/pages/frontend/js/tag'
 
 const router = useRouter()
 const route = useRoute()

@@ -148,8 +148,8 @@ import Footer from '@/layouts/components/Footer.vue'
 import UserInfoCard from '@/components/UserInfoCard.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ref } from 'vue'
-import { getTagArticles } from '@/api/frontend/tag'
-import { getCategories } from '@/api/frontend/category'
+import { getTagArticles } from '@/pages/frontend/js/tag'
+import { getCategories } from '@/pages/frontend/js/category'
 
 const router = useRouter()
 const route = useRoute()

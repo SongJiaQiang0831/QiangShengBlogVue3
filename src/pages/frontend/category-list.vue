@@ -38,7 +38,7 @@ import Header from '@/layouts/components/Header.vue'
 import Footer from '@/layouts/components/Footer.vue'
 import UserInfoCard from '@/components/UserInfoCard.vue'
 import { useRouter } from 'vue-router'
-import { getCategories } from '@/api/frontend/category'
+import { getCategories } from '@/pages/frontend/js/category'
 import { ref } from 'vue'
 
 const router = useRouter()
