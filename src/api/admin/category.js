@@ -1,7 +1,7 @@
 import axios from "@/axios"
 
 export function addCategory(data) {
-    return axios.post("/admin/category/add", data)
+    return axios.post("/props/updateProps", data)
 }
 
 export function getCategoryPageList(data) {
