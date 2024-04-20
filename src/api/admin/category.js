@@ -9,8 +9,8 @@ export function getCategoryPageList(data) {
 }
 
 
-export function deleteCategory(categoryId) {
-    return axios.post("/admin/category/delete", {categoryId})
+export function deleteCategory(data) {
+    return axios.post("/props/deleteProp", data)
 }
 
 export function getCategorySelect() {
