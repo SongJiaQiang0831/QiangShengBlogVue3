@@ -5,7 +5,7 @@ export function addCategory(data) {
 }
 
 export function getCategoryPageList(data) {
-    return axios.post("/admin/category/list", data)
+    return axios.post("/props/queryProps", data)
 }
 
 

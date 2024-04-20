@@ -25,20 +25,38 @@
 
         <el-table :data="tableData" stripe style="width: 100%" class="mt-4" v-loading="tableLoading">
             <!-- <el-table-column prop="id" label="ID" width="180" /> -->
-            <el-table-column prop="name" label="分类名称" width="180" >
-                
-            </el-table-column>
-            <el-table-column prop="createTime" label="创建时间" width="180" />
-            <el-table-column label="操作">
-                <template #default="scope">
-                    <el-button type="danger" size="small" @click="deleteCategorySubmit(scope.row)">
-                        <el-icon class="mr-1">
-                            <Delete />
-                        </el-icon>
-                        删除
-                    </el-button>
+
+              <el-table-column
+                  label="分类种类"
+                  width="180"
+              >
+                <template v-slot:default="scope">
+                  <div v-show="scope.row.propTypeCode=='tag'">
+                    标签
+                  </div>
+                  <div v-show="scope.row.propTypeCode=='category'">
+                    分类
+                  </div>
                 </template>
-            </el-table-column>
+
+              </el-table-column>
+
+
+              <el-table-column prop="propValue" label="描述" width="180" />
+          <el-table-column  label="文章个数" width="90" >
+            0
+          </el-table-column>
+
+              <el-table-column label="操作">
+                <template #default="scope">
+                  <el-button type="danger" size="small" @click="deleteCategorySubmit(scope.row)">
+                    <el-icon class="mr-1">
+                      <Delete />
+                    </el-icon>
+                    删除
+                  </el-button>
+                </template>
+              </el-table-column>
         </el-table>
 
         <div class="mt-5 flex item-center justify-center">
@@ -49,10 +67,16 @@
     </el-card>
 
     <!-- 新增分类 -->
-    <el-dialog v-model="isAddCatagoryDialogShow" title="新增分类" width="30%" :show-close="false" draggable>
+    <el-dialog v-model="isAddCatagoryDialogShow" title="新增分类/标签" width="30%" :show-close="false" draggable>
         <el-form :model="form" ref="formRef" label-position="top" :size="large" :rules="rules">
-            <el-form-item label="分类名称" prop="name">
-                <el-input v-model="form.name" autocomplete="off" size="large" maxlength="10" show-word-limit clearable />
+            <el-form-item label="名称" prop="propValue">
+                <el-input v-model="form.propValue" autocomplete="off" size="large" maxlength="10" show-word-limit clearable />
+            </el-form-item>
+            <el-form-item label="类型编码(不给随机生成)" prop="propCode">
+                <el-input v-model="form.propCode" autocomplete="off" size="large" maxlength="10" show-word-limit clearable />
+            </el-form-item>
+          <el-form-item label="类型(分类/标签)" prop="propTypeCode">
+                <el-input v-model="form.propTypeCode" autocomplete="off" size="large" maxlength="10" show-word-limit clearable />
             </el-form-item>
         </el-form>
         <template #footer>
@@ -124,7 +148,9 @@ const shortcuts = [
 ]
 
 const form = reactive({
-    name: ''
+    propValue: '',
+    propCode:'',
+    propTypeCode:''
 })
 
 const formRef = ref(null)
@@ -136,6 +162,7 @@ const rules = {
 }
 
 const addCategorySubmit = () => {
+    //判断是 标签还是 分类
     addCategory(form).then((e) => {
         console.log(e)
         if (e.success == false) {
@@ -159,16 +186,19 @@ const size = ref(10)
 
 // 获取分页数据
 function getTableData() {
-    console.log('获取分页数据')
+    console.log('获取分页数据11')
     tableLoading.value = true
-    getCategoryPageList({ current: current.value, size: size.value, startDate: startDate.value, endDate: endDate.value, categoryName: searchCategoryName.value })
+    // getCategoryPageList({ current: current.value, size: size.value, startDate: startDate.value, endDate: endDate.value, categoryName: searchCategoryName.value })
+    getCategoryPageList({requestMetaInfo:{traceId:"123"}, pageNum: current.value, pageSize: size.value })
         .then((res) => {
-            if (res.success == true) {
+            console.log(res)
+            if (res.code == 1) {
                 tableData.value = res.data
-                current.value = res.current
-                total.value = res.total
-                size.value = res.size
+                current.value = res.data.pageNum
+                total.value = res.data.total
+                size.value = res.data.pageSize
             }
+            console.log(tableData)
         }).finally(() => {
             tableLoading.value = false
         })

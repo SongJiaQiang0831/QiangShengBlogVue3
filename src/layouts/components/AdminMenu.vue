@@ -50,7 +50,7 @@ const menus = [{
     'child': []
 },
 {
-    'name': '分类管理',
+    'name': '分类/标签管理',
     'icon': 'FolderOpened',
     'path': '/admin/category/list',
     'child': []

@@ -1,7 +1,7 @@
 import axios from "@/axios"
 
 export function getCategories() {
-    return axios.post("/category/list")
+    return axios.post("/props/queryProps")
 }
 
 export function getCategoryArticles(data) {
