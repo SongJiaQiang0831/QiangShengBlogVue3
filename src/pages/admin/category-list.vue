@@ -1,13 +1,23 @@
 <template>
   <el-card shadow="never" :body-style="{ padding: '20px' }" class="mb-5 border-1">
     <!-- card body -->
-    <el-text class="mx-1 mr-3">分类名称</el-text>
-    <el-input v-model="searchCategoryName" placeholder="请输入（模糊查询）" class="w-50 mr-5"/>
+    <el-text class="mx-1 mr-3">类型</el-text>
+    <el-select v-model="spTypeCode" class="w-50 mr-5" clearable  placeholder="请选择">
+      <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+      </el-option>
+    </el-select>
+<!--    <el-input v-model="searchCategoryName" placeholder="请输入（模糊查询）" class="w-50 mr-5"/>-->
 
+<!--
     <el-text class="mx-1 mr-3">创建日期</el-text>
     <el-date-picker style="top: 3px" v-model="pickDate" type="daterange" range-separator="至"
                     start-placeholder="开始时间"
                     end-placeholder="结束时间" :shortcuts="shortcuts" size="default" @change="datepickerChange"/>
+-->
 
     <el-button type="primary" class="ml-3" :icon="Search" @click="getTableData">查询</el-button>
     <el-button class="ml-3" :icon="RefreshRight" @click="reset">重置</el-button>
@@ -27,7 +37,11 @@
 
     <el-table :data="tableData" stripe style="width: 100%" class="mt-4" v-loading="tableLoading">
       <!-- <el-table-column prop="id" label="ID" width="180" /> -->
-
+      <el-table-column
+          type="index"
+          label="#"
+          width="50">
+      </el-table-column>
       <el-table-column
           label="分类种类"
           width="180"
@@ -45,8 +59,11 @@
 
 
       <el-table-column prop="propValue" label="描述" width="180"/>
-      <el-table-column label="文章个数" width="90">
-        0
+<!--      <el-table-column prop="articleCnt" label="文章个数" width="90">
+
+      </el-table-column>-->
+      <el-table-column prop="createTime" label="创建时间" width="180">
+
       </el-table-column>
 
       <el-table-column label="操作">
@@ -122,6 +139,7 @@ const options=[{
   label: '标签'
 }]
 var pTypeCode=ref({})
+var spTypeCode=ref({})
 
 const reset = () => {
   pickDate.value = ''
@@ -223,6 +241,7 @@ function getTableData() {
     "requestMetaInfo": {
       "traceId": "String"
     },
+    "propTypeCode":(Object.keys(spTypeCode.value).length === 0)?null:spTypeCode.value,
     "pageNum": 1,
     "pageSize": size.value == null ? 20 : size.value
   }

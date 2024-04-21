@@ -1,7 +1,7 @@
 import axios from "@/axios"
 
-export function getDashboardArticleStatisticsInfo() {
-    return axios.post("/admin/dashboard/article/statistics")
+export function getDashboardArticleStatisticsInfo(data) {
+    return axios.post("/dashboard/article/statistics",data)
 }
 
 export function getDashboardPublishArticleStatisticsInfo() {
