@@ -38,7 +38,7 @@ const routes = [
             path: '/admin/category/list',
             component: AdminCategoryList,
             meta: {
-                title: '分类管理1123123'
+                title: '分类/标签管理'
             }
         }, {
             path: '/admin/tag/list',

@@ -1,13 +1,23 @@
 <template>
   <el-card shadow="never" :body-style="{ padding: '20px' }" class="mb-5 border-1">
     <!-- card body -->
-    <el-text class="mx-1 mr-3">分类名称</el-text>
-    <el-input v-model="searchCategoryName" placeholder="请输入（模糊查询）" class="w-50 mr-5"/>
+    <el-text class="mx-1 mr-3">类型</el-text>
+    <el-select v-model="spTypeCode" class="w-50 mr-5" clearable  placeholder="请选择">
+      <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+      </el-option>
+    </el-select>
+<!--    <el-input v-model="searchCategoryName" placeholder="请输入（模糊查询）" class="w-50 mr-5"/>-->
 
+<!--
     <el-text class="mx-1 mr-3">创建日期</el-text>
     <el-date-picker style="top: 3px" v-model="pickDate" type="daterange" range-separator="至"
                     start-placeholder="开始时间"
                     end-placeholder="结束时间" :shortcuts="shortcuts" size="default" @change="datepickerChange"/>
+-->
 
     <el-button type="primary" class="ml-3" :icon="Search" @click="getTableData">查询</el-button>
     <el-button class="ml-3" :icon="RefreshRight" @click="reset">重置</el-button>
@@ -27,7 +37,11 @@
 
     <el-table :data="tableData" stripe style="width: 100%" class="mt-4" v-loading="tableLoading">
       <!-- <el-table-column prop="id" label="ID" width="180" /> -->
-
+      <el-table-column
+          type="index"
+          label="#"
+          width="50">
+      </el-table-column>
       <el-table-column
           label="分类种类"
           width="180"
@@ -45,8 +59,11 @@
 
 
       <el-table-column prop="propValue" label="描述" width="180"/>
-      <el-table-column label="文章个数" width="90">
-        0
+<!--      <el-table-column prop="articleCnt" label="文章个数" width="90">
+
+      </el-table-column>-->
+      <el-table-column prop="createTime" label="创建时间" width="180">
+
       </el-table-column>
 
       <el-table-column label="操作">
@@ -62,13 +79,13 @@
     </el-table>
 
     <div class="mt-5 flex item-center justify-center">
-      <div class="block">
-        <span class="demonstration">大于 7 页时的效果</span>
-        <el-pagination
-            layout="prev, pager, next"
-            :total="1000">
-        </el-pagination>
-      </div>
+      <!--      <div class="block">
+              <span class="demonstration">大于 7 页时的效果</span>
+              <el-pagination
+                  layout="prev, pager, next"
+                  :total="1000">
+              </el-pagination>
+            </div>-->
     </div>
   </el-card>
 
@@ -78,14 +95,21 @@
       <el-form-item label="名称" prop="propValue">
         <el-input v-model="form.propValue" autocomplete="off" size="large" maxlength="10" show-word-limit clearable/>
       </el-form-item>
-      <el-form-item label="类型(分类/标签)" prop="propTypeCode">
-        <el-input v-model="form.propTypeCode" autocomplete="off" size="large" maxlength="10" show-word-limit clearable/>
+      <el-form-item label="类型(分类/标签)">
+          <el-select v-model="pTypeCode" clearable  placeholder="请选择">
+            <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
       </el-form-item>
     </el-form>
     <template #footer>
             <span class="dialog-footer">
                 <el-button @click="isAddCatagoryDialogShow = false">取消</el-button>
-                <el-button type="primary" @click="addCategoryTagSubmit(form.propTypeCode,form.propValue)">
+                <el-button type="primary" @click="addCategoryTagSubmit(form.propValue)">
                     提交
                 </el-button>
             </span>
@@ -107,6 +131,15 @@ const searchCategoryName = ref('')
 const pickDate = ref('')
 const startDate = reactive({})
 const endDate = reactive({})
+const options=[{
+  value: 'CATEGORY',
+  label: '分类'
+}, {
+  value: 'TAG',
+  label: '标签'
+}]
+var pTypeCode=ref({})
+var spTypeCode=ref({})
 
 const reset = () => {
   pickDate.value = ''
@@ -164,60 +197,34 @@ const rules = {
   ]
 }
 
-function addCategoryTagSubmit(propTypeCode, propValue) {
-  if (propTypeCode === '标签' || propTypeCode === '分类') {
-    var data = {
-      'requestMetaInfo': {
-        'traceId': 'String'
-      },
-      'props': [{
-        'propTypeCode': propTypeCode === '分类' ? 'CATEGORY' : 'TAG',
-        'propValue': propValue,
-      }]
-    }
-    addCategory(data).then((e) => {
-      console.log("eeee:" + e)
-      /*  if (e.success == false) {
-            var message = e.message
-            showMessage(message, 'warning', 'message')
-            return
-        }
-
-        showMessage('添加成功', 'success', 'message')
-        isAddCatagoryDialogShow.value = false
-        getTableData()*/
-    })
-  }
-}
-
-const addCategorySubmit = (f) => {
-  console.log('输入错误1:', +f)
-  if (form.propTypeCode != '标签' || form.propTypeCode != '分类') {
-    console.log('输入错误:', +form)
-    return;
-  }
-  var data = {
-    "requestMetaInfo": {
-      "traceId": "String"
-    },
-    "props": [{
-      propTypeCode: form.propTypeCode == '分类' ? 'CATEGORY' : 'TAG',
-      propCode: form.propCode,
-      propValue: form.propValue,
-    }]
-  }
-  addCategory(data).then((e) => {
-    console.log("eeee:" + form)
-    /*  if (e.success == false) {
-          var message = e.message
-          showMessage(message, 'warning', 'message')
-          return
+function addCategoryTagSubmit( propValue) {
+  options.forEach((item)=>{
+    console.log("pTypeCode.value:"+JSON.stringify(pTypeCode.value) +"  item.value:"+item.value)
+    if (pTypeCode.value === item.value) {
+      console.log("jinlaile:"+item.value)
+      var data = {
+        'requestMetaInfo': {
+          'traceId': 'String'
+        },
+        'props': [{
+          'propTypeCode': item.value,
+          'propValue': propValue,
+        }]
       }
+       addCategory(data).then((e) => {
+         if (!(e.code == '1')) {
+           var message = e.message
+           showMessage(message, 'warning', 'message')
+           return
+         }
 
-      showMessage('添加成功', 'success', 'message')
-      isAddCatagoryDialogShow.value = false
-      getTableData()*/
+         showMessage('添加成功', 'success', 'message')
+         isAddCatagoryDialogShow.value = false
+         getTableData()
+       })
+    }
   })
+
 }
 
 const tableLoading = ref(false)
@@ -229,28 +236,23 @@ const size = ref(10)
 
 // 获取分页数据
 function getTableData() {
-  console.log("current:"+current.value)
-  console.log("pageNum:"+size)
   tableLoading.value = true
   var data = {
     "requestMetaInfo": {
       "traceId": "String"
     },
+    "propTypeCode":(Object.keys(spTypeCode.value).length === 0)?null:spTypeCode.value,
     "pageNum": 1,
-    "pageSize":size.value==null?20:size.value
+    "pageSize": size.value == null ? 20 : size.value
   }
-  console.log("data:"+JSON.stringify(data))
-  // getCategoryPageList({ current: current.value, size: size.value, startDate: startDate.value, endDate: endDate.value, categoryName: searchCategoryName.value })
   getCategoryPageList(data)
       .then((res) => {
-        console.log(res)
         if (res.code == 1) {
-          tableData.value = res.data
+          tableData.value = res.data.datas
           current.value = res.data.pageNum
           total.value = res.data.total
           size.value = res.data.pageSize
         }
-        console.log(tableData)
       }).finally(() => {
     tableLoading.value = false
   })
@@ -265,6 +267,13 @@ const handleSizeChange = (e) => {
 }
 
 const deleteCategorySubmit = (row) => {
+  console.log("row:"+JSON.stringify(row))
+  let data={
+    "requestMetaInfo": {
+      "traceId": "String"
+    },
+    "props": [row]
+  }
   ElMessageBox.confirm(
       '是否确认要删除该分类?',
       '提示',
@@ -275,8 +284,10 @@ const deleteCategorySubmit = (row) => {
       }
   )
       .then(() => {
-        deleteCategory(row.id).then((e) => {
-          if (e.success == true) {
+        console.log("已删除")
+        deleteCategory(data).then((e) => {
+          console.log("已删除")
+          if (e.code == '1') {
             showMessage('删除成功', 'success')
             getTableData()
           } else {
