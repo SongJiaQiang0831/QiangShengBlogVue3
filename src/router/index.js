@@ -4,7 +4,7 @@ import About from '@/pages/about.vue';
 import NotFound from '@/pages/404.vue';
 import AdminLogin from '@/pages/admin/login.vue';
 import Admin from '@/layouts/admin.vue'
-import AdminArticleList from '@/pages/admin/article-list.vue'
+import AdminArticleList from '@/pages/admin/article/article-list.vue'
 import AdminCategoryList from '@/pages/admin/category-list.vue'
 import AdminTagList from '@/pages/admin/tag-list.vue'
 import AdminBlogSetting from '@/pages/admin/blog-setting.vue'
@@ -74,7 +74,7 @@ const routes = [
     },
     {
         path: '/',
-        component: Index,
+        component: Admin,
         meta: {
             title: 'WeBlog首页'
         }
